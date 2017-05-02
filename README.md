@@ -1,17 +1,16 @@
 # vue-seed
 
-> vue2项目基础脚手架
-
 ## Build Setup
 
-``` bash
-# 安装vueseed
-npm i -g vue-seed
+#下载项目
 
-# 初始化脚手架
-vue-seed -i vuedemo
+git clone 路径
 
-# 进入脚手架目录，启动脚手架
-cd vuedemo
+#安装依赖
+
+npm i
+
+#运行项目
+
 npm run dev
 ```
