@@ -22,11 +22,13 @@
         </div>
         <div class="zx-nav" v-show="navShow">
             <ul class="clear">
-                <li v-for="item in hotKeyWord1" @click="selectHot(item.id)"><a>{{item.dictionaryName}}</a></li>
+                <li v-for="item in hotKeyWord1" @click="selectHot(item.id)"><a>{{item.industryName}}</a></li>
                 <li class="zx-nav-li">
-                    <img @click="showMore()" :class="{'ro':isShow}" src="../assets/img/zx-arrow.png">
+                    <div @click="showMore()" class="zx-nav-img">
+                        <img :class="{'ro':isShow}" src="../assets/img/zx-arrow.png">
+                    </div>
                     <div class="zx-nav-more" v-show="isShow">
-                        <div v-for="item in hotKeyWord2" @click="selectHot(item.id)"><a>{{item.dictionaryName}}</a></div>
+                        <div v-for="item in hotKeyWord2" @click="selectHot(item.id)"><a>{{item.industryName}}</a></div>
                     </div>
                 </li>
             </ul>
@@ -51,10 +53,14 @@ export default {
             newsListId: state => state.nav.newsListId
         }),
         hotKeyWord1() {
-            return this.hotKeyWord.slice(0,6)
+            if(this.hotKeyWord != null){
+                return this.hotKeyWord.slice(0,6)
+            }
         },
         hotKeyWord2() {
-            return this.hotKeyWord.slice(6)
+            if(this.hotKeyWord != null){
+                return this.hotKeyWord.slice(6)
+            }
         }
     },
     methods: {
@@ -142,6 +148,11 @@ export default {
     width: 13.6%;
     overflow: auto;
     height: auto;
+    float: right;
+}
+.zx-nav ul .zx-nav-li .zx-nav-img{
+    width: 100%;
+    height:3rem;
 }
 .zx-nav ul li img{
     width:1.5rem;

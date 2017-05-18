@@ -23,45 +23,56 @@ const nav = {
         setNavShow({ commit }, payload) {
             commit('navshow', payload)
         },
+        // 设置header与footer是否显示，下载页无
         setHFShow({ commit }, payload) {
             commit('hfshow', payload)
         },
+        // 各个页面cateId
         getNewsListId({ commit }, payload) {
             commit('newsListId', payload)
         },
+        // 行业ID
         getIndustryId({ commit }, payload) {
             commit('industryId', payload)
         },
+        // 设置行业是否显示参数
         setHotShow({ commit }, payload) {
             commit('hotShow', payload)
         },
+        // 获取行业关键词
         getHotArticleKeys({ commit }, payload) {
             api.getHotArticleKeys().then(res => {
                 commit('acticleKeys', res)
             }).catch(error => {
-                this.$toast('获取活动信息失败！')
+                this.$toast('获取行业关键词失败！')
             })
         },
+        // 获取文章列表
         getArticleList({ commit }, payload) {
             api.getArticleList(payload).then(res => {
                 commit('articleList', res)
             }).catch(error => {
-                this.$toast('获取活动信息失败！')
+                this.$toast('获取文章列表失败！')
             })
         },
+        // 获取文章详情
         getArticleDetail({ commit }, payload){
             api.getArticleDetail(payload).then(res => {
                 commit('articleDetail', res)
             }).catch(error => {
-                this.$toast('获取活动信息失败！')
+                this.$toast('获取文章详情失败！')
             })
         },
+        // 获取轮播列表
         getBannerList({ commit }, payload){
             api.getBannerList(payload).then(res => {
                 commit('bannerList', res)
             }).catch(error => {
-                this.$toast('获取活动信息失败！')
+                this.$toast('获取轮播列表失败！')
             })
+        },
+        setHomeList({ commit }, payload){
+            commit('homeList',payload)
         }
     },
     getters: {
@@ -88,13 +99,16 @@ const nav = {
             state.hotKeyWord = res.rows
         },
         ['articleList'](state, res) {
-            state.homeList = res.rows
+            state.homeList = state.homeList.concat(res.rows)
         },
         ['articleDetail'](state, res) {
             state.articleDetail = res.data
         },
         ['bannerList'](state, res) {
             state.bannerList = res.rows
+        },
+        ['homeList'](state, payload) {
+            state.homeList = payload.homeList
         }
     }
 }

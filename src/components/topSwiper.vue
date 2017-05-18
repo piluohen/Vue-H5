@@ -1,9 +1,7 @@
 <template>
   <mt-swipe :auto="4000">
       <mt-swipe-item v-for="item in bannerList">
-        <div>
-          <img class="content" v-lazyload="lazyLoadPic(item.imgPath)">
-        </div>
+          <img class="content" v-lazyload="lazyLoadPic(item.imgPath,item.synId,1)">
       </mt-swipe-item>
     </mt-swipe>
 </template>
@@ -32,8 +30,8 @@ export default {
     this.$store.dispatch('getBannerList', params)
   },
   methods: {
-    lazyLoadPic(url) {
-          return Vue.filter('imgCdn')(url)
+    lazyLoadPic(url,type,status) {
+          return Vue.filter('imgCdn')(url,type,status)
         }
   }
 }
@@ -41,7 +39,7 @@ export default {
 
 <style>
 .mint-swipe {
-    height: 12.8rem;
+    height: 17.8rem;
   }
   
   .mint-swipe-indicators {
@@ -62,5 +60,6 @@ export default {
   }
   .mint-swipe-item img {
     width: 100%;
+    height: 100%;
   }
 </style>

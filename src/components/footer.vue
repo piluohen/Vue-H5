@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a v-show="footerShow" @click="showMode()" class="footer">关注更多大宗资讯</a>
+        <a v-show="footerShow" @click="showMode()" class="footer">下载APP，获取更多商讯商机</a>
         <div class="download-mode" v-if="modeShow">
             <div class="download-mode-body">
                 <img src="../assets/img/long-arrow.png" alt="">
@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     .footer{
         position:fixed;
         bottom:0;

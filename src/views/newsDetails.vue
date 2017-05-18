@@ -4,17 +4,17 @@
       <div class="detail-title">{{articleDetail.articleTitle}}</div>
       <div class="detail-user-box clear">
         <div class="home-user fn-left">
-          <img v-lazyload="lazyLoadPic(articleDetail.headImg)">
+          <img v-lazyload="lazyLoadPic(articleDetail.headImg,null,2)">
           <span>{{articleDetail.nickName}}</span>
-          <span>{{articleDetail.pushTime | getDate}}</span>
+          <span>{{articleDetail.createTime | getDate}}</span>
         </div>
-        <div class="detail-read fn-right">
+        <!--<div class="detail-read fn-right">
           <img src="../assets/img/eye.png" alt="">
           <span>阅读</span>
-          <span>{{articleDetail.bFellowed}}</span>
-        </div>
+          <span class="detail-readNum">{{articleDetail.readNum}}</span>
+        </div>-->
       </div>
-      <div class="detail-desc">{{articleDetail.articleContent}}</div>
+      <div class="detail-desc" v-html="articleDetail.articleContent"></div>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
       ...mapState({
-          articleDetail: state => state.nav.articleDetail
+          articleDetail: state => state.nav.articleDetail || {}
       })
   },
   created(){
@@ -48,8 +48,8 @@ export default {
       this.$store.dispatch('getArticleDetail', params)
   },
   methods: {
-    lazyLoadPic(url) {
-        return Vue.filter('imgCdn')(url)
+    lazyLoadPic(url,type,status) {
+        return Vue.filter('imgCdn')(url,type,status)
       }
   }
 }
@@ -77,5 +77,8 @@ export default {
   }
   .detail-desc img{
     max-width: 100%;
+  }
+  .detail-readNum{
+    margin-left: 0.5rem;
   }
 </style>

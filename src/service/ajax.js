@@ -29,7 +29,7 @@ export function fetch(url, params, method = 'GET') {
 
 export default {
     getHotArticleKeys() {
-        return fetch('/getHotArticleKeys')
+        return fetch('/queryIndustry')
     },
     getArticleList(params) {
         return fetch(`/getArticleList`, params)
