@@ -1,7 +1,9 @@
 <template>
-  <mt-swipe :auto="4000">
+  <mt-swipe :auto="3000">
       <mt-swipe-item v-for="item in bannerList">
-          <img class="content" v-lazyload="lazyLoadPic(item.imgPath,item.synId,1)">
+          <a :href="item.linkUrl">
+            <img class="content" v-lazyload="lazyLoadPic(item.imgPath,item.synId,1)">
+          </a>
       </mt-swipe-item>
     </mt-swipe>
 </template>

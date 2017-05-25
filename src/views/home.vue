@@ -32,6 +32,6 @@ export default {
 
 <style>
     .home{
-      margin-top: 6.8rem;
+      margin: 6.8rem 0 3.9rem 0;
     }
 </style>

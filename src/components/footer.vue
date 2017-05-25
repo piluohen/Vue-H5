@@ -1,6 +1,12 @@
 <template>
-    <div>
-        <a v-show="footerShow" @click="showMode()" class="footer">下载APP，获取更多商讯商机</a>
+    <div class="footer" v-show="footerShow">
+        <div class="footer-box clear">
+            <div class="fn-left footer-left">
+                <img class="footer-logo" src="../assets/img/footer-logo.png" alt="">
+                <span class="footer-text">聚贸资讯APP客户端</span>
+            </div>
+            <a @click="showMode()" class="footer-btn fn-right">立即打开</a>
+        </div>
         <div class="download-mode" v-if="modeShow">
             <div class="download-mode-body">
                 <img src="../assets/img/long-arrow.png" alt="">
@@ -59,15 +65,39 @@ export default {
     .footer{
         position:fixed;
         bottom:0;
-        background-color: #00aeef;
+        left: 0;
+        background-color: #474747;
         width:100%;
-        height:4.3rem;
-        line-height:4.3rem;
-        font-size:1.5rem;
+        height: 3.9rem;
+        line-height:3.9rem;
+        font-size:1rem;
         color:#ffffff;
         text-align:center;
         z-index:100;
+        color: #ffffff
     }
+    .footer-box{
+        padding: 0 1.3rem;
+        height: 100%;
+    }
+    .footer-logo{
+        width: 3.1rem;
+        height: 3.1rem;
+        margin-right: 0.6rem;
+        vertical-align: middle;
+    }
+    .footer-text{
+        vertical-align: middle;
+    }
+    .footer-btn{
+        background-color: #2788e8;
+        padding: 0.5rem;
+        line-height: initial;
+        vertical-align: middle;
+        margin-top: 0.8rem;
+        border-radius: 0.2rem;
+    }
+
     .download-mode{
         position: fixed;
         z-index: 123;

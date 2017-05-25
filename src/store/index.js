@@ -16,7 +16,9 @@ const nav = {
         hotKeyWord: [],
         homeList: [],
         articleDetail: {},
-        bannerList: []
+        bannerList: [],
+        version: {},
+        loadFlag: false
     },
     actions: {
         // 设置nav导航是否显示，最热资讯显示
@@ -73,6 +75,17 @@ const nav = {
         },
         setHomeList({ commit }, payload){
             commit('homeList',payload)
+        },
+        // 获取安卓下载地址
+        getVersion({ commit }, payload){
+            api.getVersion(payload).then(res => {
+                commit('version', res)
+            }).catch(error => {
+                this.$toast('获取轮播列表失败！')
+            })
+        },
+        setLoadFlag({ commit }, payload){
+            commit('loadFlag', payload)
         }
     },
     getters: {
@@ -100,6 +113,11 @@ const nav = {
         },
         ['articleList'](state, res) {
             state.homeList = state.homeList.concat(res.rows)
+            if (res.rows.length < 10) {
+                state.loadFlag = true
+            } else {
+                state.loadFlag = false
+            }
         },
         ['articleDetail'](state, res) {
             state.articleDetail = res.data
@@ -109,6 +127,12 @@ const nav = {
         },
         ['homeList'](state, payload) {
             state.homeList = payload.homeList
+        },
+        ['version'](state, res) {
+            state.version = res.data
+        },
+        ['loadFlag'](state, payload){
+            state.loadFlag = payload.loadFlag
         }
     }
 }

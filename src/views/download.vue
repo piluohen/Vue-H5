@@ -1,14 +1,14 @@
 <template>
     <div class="download">
         <img class="download-img" src="../assets/img/download.png">
-        <div class="download-desc-box">
+        <!--<div class="download-desc-box">
             <div class="download-title">全球资讯，聚在这里</div>
             <p class="download-desc">
                 聚贸资讯是全球首家工业全产业链及全服务业资讯平台，致力于为用户提供最热的行业资讯及最专业的动态分析。聚贸资讯全方位展示信息、 追踪时事热点，为用户提供可参与商业资讯与观点交流的平台。聚贸资讯依托聚贸平台大数据等全方位的服务，聚合最新最热的行业动态。
             </p>
-        </div>
-        <img class="download-code" src="../assets/img/download-code.png">
-        <button class="download-btn" type="button" @click="downloadApp()">直接下载</button>
+        </div>-->
+        <!--<img class="download-code" src="../assets/img/download-code.png">-->
+        <button class="download-btn" type="button" @click="downloadApp()">下载APP</button>
         <div class="download-mode" v-if="modeShow">
             <div class="download-mode-body">
                 <img src="../assets/img/long-arrow.png" alt="">
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 function isWeiXin() {
     var ua = window.navigator.userAgent.toLowerCase();
     if (ua.match(/MicroMessenger/i) == 'micromessenger') {
@@ -43,9 +45,22 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch('setHFShow', { headerShow: false, footerShow: false })
+        this.$store.dispatch('setHFShow', { headerShow: false, footerShow: false }),
+        this.getVersion()
+    },
+    computed: {
+        ...mapState({
+            version: state => state.nav.version
+        })
     },
     methods: {
+        getVersion(){
+            let params = {
+                clientType: 0,
+                updateType: 1
+            }
+            this.$store.dispatch('getVersion', params)
+        },
         downloadApp() {
             if (isWeiXin()) {
                 this.modeShow = true
@@ -53,10 +68,9 @@ export default {
                 if (/(iPhone | iPad | iOS)/i.test(navigator.userAgent)) {
                     window.location.href = 'https://itunes.apple.com/cn/app/ju-mao-hua-gong/id1233520193?mt=8'
                 } else if (/(Android)/i.test(navigator.userAgent)) {
-                    window.location.href = 'http://m.jumorenews.com/mobile_download/jmzx_app_1.0.0.apk'
+                    window.location.href = this.version[0].url + ''
                 }
             }
-
         }
     }
 }
@@ -65,7 +79,9 @@ export default {
 <style>
 
 .download {
+    min-height: 100%;
     text-align: center;
+    background: #ddeef9;
 }
 
 .download-desc-box {
@@ -85,9 +101,9 @@ export default {
 }
 
 .download-img {
-    width: 15.5rem;
-    height: 7rem;
-    margin: 4rem auto 1rem auto;
+    width: 23.4rem;
+    height: 31.9rem;
+    margin: 7.6rem auto 5.1rem auto;
 }
 
 .download-code {
@@ -97,14 +113,13 @@ export default {
 }
 
 .download-btn {
-    width: 23.4rem;
-    height: 3.4rem;
-    line-height: 3.4rem;
+    padding: 0.8rem 1.6rem;
     color: #ffffff;
     background: #2788e7;
     border: none;
-    border-radius: 1.7rem;
-    font-size: 1.6rem;
+    border-radius: 1.1rem;
+    font-size: 1.8rem;
     outline: none;
+    margin-bottom: 6rem;
 }
 </style>

@@ -70,8 +70,15 @@ export default {
         selectHot(id){
             let params = {
               cateId: this.newsListId,
-              industryId: id
+              industryId: id,
+              start: 0,
+              limit: 10
             }
+            let param = {
+                homeList: []
+            }
+            this.$store.dispatch('setHomeList', param)
+            this.$store.dispatch('setLoadFlag', {'loadFlag': false})
             this.$router.push({path:'/hot',query: params})
             this.$store.dispatch('getArticleList', params)
         }
@@ -86,6 +93,7 @@ export default {
 .header{
     position:fixed;
     top:0;
+    left: 0;
     width:100%;
     z-index:100;
 }

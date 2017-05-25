@@ -39,5 +39,8 @@ export default {
     },
     getBannerList(params) {
         return fetch('/bannerList', params)
+    },
+    getVersion(params) {
+        return fetch('/version', params)
     }
 }

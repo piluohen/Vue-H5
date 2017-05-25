@@ -13,7 +13,7 @@
                 <img v-lazyload="lazyLoadPic(item.headImg,null,2)">
                 <span>{{item.nickName}}</span>
               </div>
-              <div class="fn-right home-time">{{item.pushTime | getDate}}</div>
+              <div class="fn-right home-time">{{item.createTime | getDate}}</div>
             </div>
           </div>
         </a>
@@ -35,17 +35,19 @@
             ...mapState({
                 newsListId: state => state.nav.newsListId,
                 hotShow: state => state.nav.hotShow,
-                homeList: state => state.nav.homeList
+                homeList: state => state.nav.homeList,
+                loading: state => state.nav.loadFlag
             })
         },
         created(){
-          
+            
         },
         methods: {
           linkDetail(id){
             this.$router.push({path:'/detail',query: {articleId: id}})
           },
           loadMore(){
+              this.$store.dispatch('setLoadFlag', {'loadFlag': true})
               let start = this.homeList.length || 0;
               this.getNewsList(start)
           },
@@ -63,7 +65,6 @@
             return Vue.filter('imgCdn')(url,type,status)
           },
           showData(){
-            console.log(this.showFlag)
             if(this.showFlag){
 
             }
@@ -73,6 +74,7 @@
           let params = {
             homeList: []
           }
+          this.$store.dispatch('setLoadFlag', {'loadFlag': false})
           this.$store.dispatch('setHomeList', params)
         }
     }

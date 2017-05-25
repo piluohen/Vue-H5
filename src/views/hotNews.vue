@@ -27,6 +27,6 @@ export default {
 
 <style>
 .news-top{
-    margin-top:9.8rem;
+    margin:9.8rem 0 3.9rem 0;
 }
 </style>
