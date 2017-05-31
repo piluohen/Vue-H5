@@ -9,26 +9,13 @@
         </div>-->
         <!--<img class="download-code" src="../assets/img/download-code.png">-->
         <button class="download-btn" type="button" @click="downloadApp()">下载APP</button>
-        <div class="download-mode" v-if="modeShow">
-            <div class="download-mode-body">
-                <img src="../assets/img/long-arrow.png" alt="">
-                <div class="download-mode-body-box">
-                    <div class="item">
-                        <span class="download-circle">1</span>
-                        <span>点击右上角的</span>
-                    </div>
-                    <div class="item">
-                        <span class="download-circle">2</span>
-                        <span>选择在浏览器中打开</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <download-mode v-if="modeShow"></download-mode>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import downloadMode from '../components/downloadMode'
 
 function isWeiXin() {
     var ua = window.navigator.userAgent.toLowerCase();
@@ -43,6 +30,9 @@ export default {
         return {
             modeShow: false
         }
+    },
+    components: {
+        downloadMode
     },
     created() {
         this.$store.dispatch('setHFShow', { headerShow: false, footerShow: false }),
