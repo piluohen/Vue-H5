@@ -22,13 +22,13 @@
         </div>
         <div class="zx-nav" v-show="navShow">
             <ul class="clear">
-                <li v-for="item in hotKeyWord1" @click="selectHot(item.id)"><a>{{item.industryName}}</a></li>
+                <li v-for="item in hotKeyWord1" @click="selectHot(item.id,0)"><a>{{item.industryName}}</a></li>
                 <li class="zx-nav-li">
                     <div @click="showMore()" class="zx-nav-img">
                         <img :class="{'ro':isShow}" src="../assets/img/zx-arrow.png">
                     </div>
                     <div class="zx-nav-more" v-show="isShow">
-                        <div v-for="item in hotKeyWord2" @click="selectHot(item.id)"><a>{{item.industryName}}</a></div>
+                        <div v-for="item in hotKeyWord2" @click="selectHot(item.id,1)"><a>{{item.industryName}}</a></div>
                     </div>
                 </li>
             </ul>
@@ -67,7 +67,10 @@ export default {
         showMore() {
             this.isShow = !this.isShow
         },
-        selectHot(id){
+        selectHot(id,index){
+            if (index == 0) {
+                this.isShow = false
+            }
             let params = {
               cateId: this.newsListId,
               industryId: id,
@@ -78,7 +81,7 @@ export default {
                 homeList: []
             }
             this.$store.dispatch('setHomeList', param)
-            this.$store.dispatch('setLoadFlag', {'loadFlag': false})
+            // this.$store.dispatch('setLoadFlag', {'loadFlag': false})
             this.$router.push({path:'/hot',query: params})
             this.$store.dispatch('getArticleList', params)
         }
@@ -93,7 +96,7 @@ export default {
 .header{
     position:fixed;
     top:0;
-    left: 0;
+    max-width: 1080px;
     width:100%;
     z-index:100;
 }
