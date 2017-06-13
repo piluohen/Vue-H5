@@ -39,9 +39,6 @@
                 loading: state => state.nav.loadFlag
             })
         },
-        created(){
-            
-        },
         methods: {
           linkDetail(id){
             this.$router.push({path:'/detail',query: {articleId: id}})

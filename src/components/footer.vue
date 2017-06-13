@@ -12,17 +12,9 @@
 </template>
 
 <script>
+import global from '../service/global'
 import { mapState } from 'vuex'
 import downloadMode from '../components/downloadMode'
-
-function isWeiXin() {
-    var ua = window.navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-        return true;
-    }else{
-        return false;
-    }
-}
 
 export default {
     data(){
@@ -36,11 +28,14 @@ export default {
     computed: {
         ...mapState({
             footerShow: state => state.nav.footerShow
-        })
+        }),
+        isWeiXin(){
+            return this.$store.getters.isWeiXin
+        }
     },
     methods: {
         showMode(){
-            if(isWeiXin()) {
+            if(global.isWeiXin()) {
                 this.modeShow = true
             } else {
                 this.$router.push({ path: 'download' })

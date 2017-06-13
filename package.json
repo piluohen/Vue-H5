@@ -11,9 +11,9 @@
   "dependencies": {
     "axios": "^0.15.3",
     "comment-core-library": "^0.9.3",
-    "mint-ui": "^2.1.1",
+    "mint-ui": "^2.2.7",
     "vee-validate": "^2.0.0-beta.22",
-    "vue": "^2.1.10",
+    "vue": "^2.3.0",
     "vue-axios": "^1.2.2",
     "vue-router": "^2.2.0",
     "vuex": "^2.1.2"

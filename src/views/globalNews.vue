@@ -11,11 +11,7 @@ import newsList from 'components/newsList'
 
 export default {
   name: 'home',
-  data() {
-      return {
-        
-      }
-  },
+  
   components: {
       topSwiper,
       newsList

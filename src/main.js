@@ -7,6 +7,9 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Mint from 'mint-ui'
+
+// 引入mint-ui样式
+import 'mint-ui/lib/style.css'
 import 'assets/css/common.css'
 import 'assets/css/swiper.min.css'
 
@@ -19,8 +22,6 @@ import filter from 'service/filters'
 
 import LazyLoad from 'service/lazyload'
 
-// 引入mint-ui样式
-import 'mint-ui/lib/style.css'
 
 Vue.use(LazyLoad)
 Vue.use(Mint)

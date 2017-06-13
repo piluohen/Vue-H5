@@ -26,11 +26,6 @@ import Vue from 'vue'
 
 export default {
   name: 'home',
-  data() {
-    return {
-
-    }
-  },
   components: {
     topSwiper
   },

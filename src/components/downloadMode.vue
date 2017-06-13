@@ -15,12 +15,14 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
-
+    name: "downloadMode"
 }
 </script>
-<style scoped>
+
+<style>
 .download-mode {
     position: fixed;
     z-index: 123;
