@@ -2,18 +2,18 @@
     <ul class="home-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
       <li class="clear" v-for="item in homeList">
         <a @click="linkDetail(item.id)">
-          <img class="fn-left home-list-img" v-lazyload="lazyLoadPic(item.indexImg)">
+          <img class="fn-left home-list-img" v-lazyload="lazyLoadPic(item.indexImg,item.synId,1)">
           <div class="fn-right home-list-right">
             <div class="home-title">
-                <span class="hot-label" v-if="hotShow">HOT</span>
+                <!--<span class="hot-label" v-if="hotShow">HOT</span>-->
                 <span class="home-title-h3">{{item.articleTitle}}</span>
             </div>
             <div class="clear home-user-box">
               <div class="home-user fn-left">
-                <img v-lazyload="lazyLoadPic(item.headImg)">
+                <img v-lazyload="lazyLoadPic(item.headImg,null,2)">
                 <span>{{item.nickName}}</span>
               </div>
-              <div class="fn-right home-time">{{item.pushTime | getDate}}</div>
+              <div class="fn-right home-time">{{item.createTime | getDate}}</div>
             </div>
           </div>
         </a>
@@ -28,42 +28,51 @@
         name: 'newsList',
         data(){
             return {
-                initPage: 0
+                showFlag: false
             }
         },
         computed: {
             ...mapState({
                 newsListId: state => state.nav.newsListId,
                 hotShow: state => state.nav.hotShow,
-                homeList: state => state.nav.homeList
+                homeList: state => state.nav.homeList,
+                loading: state => state.nav.loadFlag
             })
-        },
-        created(){
-            this.getNewsList(0)
         },
         methods: {
           linkDetail(id){
             this.$router.push({path:'/detail',query: {articleId: id}})
           },
           loadMore(){
-              var start = this.homeList.length;
-              this.getNewsList((this.initPage+1)*10)
+              this.$store.dispatch('setLoadFlag', {'loadFlag': true})
+              let start = this.homeList.length || 0;
+              this.getNewsList(start)
           },
           getNewsList(start){
             let params = {
               cateId: this.newsListId,
               industryId: this.$route.query.industryId,
               start: start,
-              limit: 10
+              limit: 10,
             }
+            
             this.$store.dispatch('getArticleList', params)
           },
-          lazyLoadPic(url) {
-            return Vue.filter('imgCdn')(url)
+          lazyLoadPic(url,type,status) {
+            return Vue.filter('imgCdn')(url,type,status)
+          },
+          showData(){
+            if(this.showFlag){
+
+            }
           }
         },
-        watch: {
-          "$route": "getNewsList"
+        destroyed(){
+          let params = {
+            homeList: []
+          }
+          this.$store.dispatch('setLoadFlag', {'loadFlag': false})
+          this.$store.dispatch('setHomeList', params)
         }
     }
 </script>
@@ -95,7 +104,7 @@
     .home-title-h3{
       color: #2c2c2c;
       font-size: 1.2rem;
-      line-height: 1.5rem;
+      line-height: 1.6rem;
     }
     .hot-label{
       display: inline-block;
@@ -108,6 +117,7 @@
       font-size: 0.8rem;
       color: #ffffff;
       text-align: center;
+      vertical-align: top;
     }
     .home-user-box{
       position: absolute;
@@ -126,5 +136,6 @@
     }
     .home-user span{
       vertical-align: middle;
+      margin-right: 0.5rem;
     }
 </style>

@@ -7,8 +7,7 @@
 module.exports = {
 
     // api服务器
-    // API_ADDRESS: "http://121.43.178.117:8080",
-    API_ADDRESS: "http://192.168.23.202:8082/",
+    API_ADDRESS: "http://192.168.23.26:8082",
 
     // 中台服务器
     CENTER_ADDRESS: "http://192.168.26.251:8889",
@@ -20,7 +19,9 @@ module.exports = {
     CDN_ADDRESS: "/",
 
     // 图片服务器
-    IMG_ADDRESS: "http://image.jm.com/",
+    IMG_ADDRESS: "http://image.jm.com",
+
+    OLDIMG_ADDRESS: "http://image2.jm.com",
 
     // 图片上传服务器
     UPLOAD_ADDRESS: "http://image5.jm.com"

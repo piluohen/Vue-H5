@@ -2,7 +2,7 @@
     <div class="header" v-show="headerShow">
         <div class="header-logo">
             <img class="logo" src="../assets/img/logo.png">
-            <span class="logo-txt">你关心的，都在这里</span>
+            <span class="logo-txt">全球资讯，聚在这里</span>
         </div>
         <div class="header-nav">
             <ul>
@@ -21,14 +21,19 @@
             </ul>
         </div>
         <div class="zx-nav" v-show="navShow">
-            <ul class="clear">
-                <li v-for="item in hotKeyWord1" @click="selectHot(item.id)"><a>{{item.dictionaryName}}</a></li>
+            <!--<ul class="clear">
+                <li v-for="item in hotKeyWord1" @click="selectHot(item.id,0)"><a>{{item.industryName}}</a></li>
                 <li class="zx-nav-li">
-                    <img @click="showMore()" :class="{'ro':isShow}" src="../assets/img/zx-arrow.png">
+                    <div @click="showMore()" class="zx-nav-img">
+                        <img :class="{'ro':isShow}" src="../assets/img/zx-arrow.png">
+                    </div>
                     <div class="zx-nav-more" v-show="isShow">
-                        <div v-for="item in hotKeyWord2" @click="selectHot(item.id)"><a>{{item.dictionaryName}}</a></div>
+                        <div v-for="item in hotKeyWord2" @click="selectHot(item.id,1)"><a>{{item.industryName}}</a></div>
                     </div>
                 </li>
+            </ul>-->
+            <ul class="clear">
+                <li v-for="item in hotKeyWord" @click="selectHot(item.id,0)"><a>{{item.industryName}}</a></li>
             </ul>
         </div>
     </div>
@@ -51,21 +56,35 @@ export default {
             newsListId: state => state.nav.newsListId
         }),
         hotKeyWord1() {
-            return this.hotKeyWord.slice(0,6)
+            if(this.hotKeyWord != null){
+                return this.hotKeyWord.slice(0,6)
+            }
         },
         hotKeyWord2() {
-            return this.hotKeyWord.slice(6)
+            if(this.hotKeyWord != null){
+                return this.hotKeyWord.slice(6)
+            }
         }
     },
     methods: {
         showMore() {
             this.isShow = !this.isShow
         },
-        selectHot(id){
+        selectHot(id,index){
+            // if (index == 0) {
+                this.isShow = false
+            // }
             let params = {
               cateId: this.newsListId,
-              industryId: id
+              industryId: id,
+              start: 0,
+              limit: 10
             }
+            let param = {
+                homeList: []
+            }
+            this.$store.dispatch('setHomeList', param)
+            // this.$store.dispatch('setLoadFlag', {'loadFlag': false})
             this.$router.push({path:'/hot',query: params})
             this.$store.dispatch('getArticleList', params)
         }
@@ -80,8 +99,10 @@ export default {
 .header{
     position:fixed;
     top:0;
+    max-width: 1080px;
     width:100%;
     z-index:100;
+    max-height: 9.8rem;
 }
 .header-logo{
     background:#ffffff;
@@ -126,13 +147,21 @@ export default {
     height:3rem;
     line-height:3rem;
     font-size: 1.1rem;
+    overflow: hidden
+}
+.zx-nav ul {
+    height: 4.2rem;
+    overflow-x: auto;
+    display: flex;
+    justify-content: space-between
 }
 .zx-nav ul li{
-    float:left;
-    width:14.4%;
+    /*float:left;*/
+    width:20%;
     text-align:center;
     overflow: hidden;
     height: 3rem;
+    flex: 1 0 auto;
 }
 .zx-nav ul li a{
     color: #434343;
@@ -142,9 +171,14 @@ export default {
     width: 13.6%;
     overflow: auto;
     height: auto;
+    float: right;
+}
+.zx-nav ul .zx-nav-li .zx-nav-img{
+    width: 100%;
+    height:3rem;
 }
 .zx-nav ul li img{
-    width:1.5rem;
+    width:1.34rem;
     transform:rotate(180deg);
     -ms-transform:rotate(180deg); 	/* IE 9 */
     -moz-transform:rotate(180deg); 	/* Firefox */

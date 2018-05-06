@@ -28,8 +28,23 @@ var filters=[
     // 图片cdn
     {
         name:'imgCdn',
-        fn:function(val){
-            return address.IMG_ADDRESS+val
+        fn:function(val,type,status){
+            if(status == 2){
+                if(val && val.indexOf(',') > -1){
+                    var src = val.split(',')[0]
+                    return address.IMG_ADDRESS + src
+                }else{
+                    return address.IMG_ADDRESS + val
+                }
+            } else {
+                var url = type ? address.OLDIMG_ADDRESS : address.IMG_ADDRESS
+                if(val && val.indexOf(',') > -1){
+                    var src = val.split(',')[0]
+                    return url + src
+                }else{
+                    return url + val
+                }
+            }
         }
     },
     // 时间截取日期
@@ -39,6 +54,13 @@ var filters=[
             if(val && val.length > 0){
                 return val.substr(0, val.indexOf(' '))
             }
+        }
+    },
+    {
+        name: 'imgSlice',
+        fn: function(val){
+            var i = val.indexOf(',')
+            return val.slice(0,i)
         }
     }
 ]

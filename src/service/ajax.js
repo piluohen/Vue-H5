@@ -29,7 +29,7 @@ export function fetch(url, params, method = 'GET') {
 
 export default {
     getHotArticleKeys() {
-        return fetch('/getHotArticleKeys')
+        return fetch('/queryIndustry')
     },
     getArticleList(params) {
         return fetch(`/getArticleList`, params)
@@ -39,5 +39,8 @@ export default {
     },
     getBannerList(params) {
         return fetch('/bannerList', params)
+    },
+    getVersion(params) {
+        return fetch('/version', params)
     }
 }

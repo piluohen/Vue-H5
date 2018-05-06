@@ -54,12 +54,18 @@ export default {
 </script>
 
 <style>
+html,body{
+  height: 100%;
+}
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    margin-bottom:4.3rem;
+    /*margin-bottom:4.3rem;*/
+    max-width: 1080px;
+    height: 100%;
+    margin: 0 auto;
   }
   .menu-bar{
     height:60px;
