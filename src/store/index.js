@@ -42,6 +42,7 @@ const nav = {
                 this.$toast('获取活动信息失败！')
             })
         },
+        // 获取新闻列表
         getArticleList({ commit }, payload) {
             api.getArticleList(payload).then(res => {
                 commit('articleList', res)
@@ -88,7 +89,7 @@ const nav = {
             state.hotKeyWord = res.rows
         },
         ['articleList'](state, res) {
-            state.homeList = res.rows
+            state.homeList = state.homeList.contact(res.rows)
         },
         ['articleDetail'](state, res) {
             state.articleDetail = res.data

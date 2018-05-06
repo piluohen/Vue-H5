@@ -28,7 +28,7 @@
         name: 'newsList',
         data(){
             return {
-                
+                initPage: 0
             }
         },
         computed: {
@@ -39,19 +39,22 @@
             })
         },
         created(){
-            this.getNewsList()
+            this.getNewsList(0)
         },
         methods: {
           linkDetail(id){
             this.$router.push({path:'/detail',query: {articleId: id}})
           },
           loadMore(){
-
+              var start = this.homeList.length;
+              this.getNewsList((this.initPage+1)*10)
           },
-          getNewsList(){
+          getNewsList(start){
             let params = {
               cateId: this.newsListId,
-              industryId: this.$route.query.industryId
+              industryId: this.$route.query.industryId,
+              start: start,
+              limit: 10
             }
             this.$store.dispatch('getArticleList', params)
           },
